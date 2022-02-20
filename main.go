@@ -44,6 +44,9 @@ func main() {
 				Usage: "encrypts file with provided password",
 				Action: func(c *cli.Context) error {
 					spnr, _ := pterm.DefaultSpinner.Start("Encrypting...")
+					if err != nil {
+						pterm.Error.Println(err)
+					}
 					ac, err := actions.NewCommandFactory().SetEncryptor(c)
 					if err != nil {
 						spnr.Fail("Encryption failed!")
@@ -61,7 +64,10 @@ func main() {
 				Name:  "decrypt",
 				Usage: "decrypts file with provided password",
 				Action: func(c *cli.Context) error {
-					spnr, _ := pterm.DefaultSpinner.Start("Decrypting...")
+					spnr, err := pterm.DefaultSpinner.Start("Decrypting...")
+					if err != nil {
+						pterm.Error.Println(err)
+					}
 					ac, err := actions.NewCommandFactory().SetDecryptor(c)
 					if err != nil {
 						spnr.Fail("Decryption failed!")
@@ -91,8 +97,11 @@ func main() {
 }
 
 func logoRender() {
-	pterm.DefaultBigText.WithLetters(
+	err := pterm.DefaultBigText.WithLetters(
 		pterm.NewLettersFromStringWithStyle("crypt", pterm.NewStyle(pterm.FgCyan)),
 		pterm.NewLettersFromStringWithStyle("go", pterm.NewStyle(pterm.FgLightMagenta))).
 		Render()
+	if err != nil {
+		pterm.Error.Println(err)
+	}
 }
