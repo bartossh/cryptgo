@@ -2,6 +2,10 @@
 
 Simplistic CLI tool for encrypting and decrypting files based on RSA keys.
 
+[![cryptgo](https://github.com/bartossh/cryptgo/actions/workflows/go.yml/badge.svg)](https://github.com/bartossh/cryptgo/actions/workflows/go.yml)
+[![cryptgo](https://github.com/bartossh/cryptgo/actions/workflows/go.yml/badge.svg)](https://github.com/bartossh/cryptgo/actions/workflows/go.yml)
+[![codecov](https://codecov.io/gh/bartossh/cryptgo/branch/main/graph/badge.svg?token=1748BU8XY2)](https://codecov.io/gh/bartossh/cryptgo)
+
 ## Features
 
 - Asymmetric encryption/decryption.
