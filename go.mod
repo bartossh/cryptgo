@@ -1,4 +1,4 @@
-module examples.com/cryptgo
+module github.com/bartossh/cryptgo
 
 go 1.16
 
