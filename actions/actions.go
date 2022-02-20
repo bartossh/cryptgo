@@ -7,8 +7,8 @@ import (
 	"os/user"
 	"path/filepath"
 
-	"examples.com/cryptgo/ciphers"
-	"examples.com/cryptgo/filesbuf"
+	"github.com/bartossh/cryptgo/ciphers"
+	"github.com/bartossh/cryptgo/filesbuf"
 	"github.com/urfave/cli/v2"
 )
 

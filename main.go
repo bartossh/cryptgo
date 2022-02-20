@@ -5,7 +5,7 @@ import (
 	"runtime"
 	"sort"
 
-	"examples.com/cryptgo/actions"
+	"github.com/bartossh/cryptgo/actions"
 	"github.com/pterm/pterm"
 	"github.com/urfave/cli/v2"
 )
