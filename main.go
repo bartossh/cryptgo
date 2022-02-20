@@ -43,7 +43,7 @@ func main() {
 				Name:  "encrypt",
 				Usage: "encrypts file with provided password",
 				Action: func(c *cli.Context) error {
-					spnr, _ := pterm.DefaultSpinner.Start("Encrypting...")
+					spnr, err := pterm.DefaultSpinner.Start("Encrypting...")
 					if err != nil {
 						pterm.Error.Println(err)
 					}
