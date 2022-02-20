@@ -36,4 +36,4 @@ jobs:
     - name: Run coverage
       run: go test `go list ./..` -race -coverprofile=coverage.out -covermode=atomic
     - name: Upload coverage to Codecov
-      run: bash <(curl -s https://codecov.io/bash)name: cryptgo
+      run: bash <(curl -s https://codecov.io/bash)
