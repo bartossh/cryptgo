@@ -1,2 +1,63 @@
 # cryptgo
+
 Simplistic CLI tool for encrypting and decrypting files based on RSA keys.
+
+## Features
+
+- Asymmetric encryption/decryption.
+- Hash SHA512 based.
+- Random source of entropy ensure that encrypting the same message twice doesn't result in the same ciphertex. 
+- Encrypts single file using your system `~/.ssh/id_rsa` to generate private key.
+- Decrypts single file using your system `~/.ssh/id_rsa` key.
+- Can encrypt and decrypt files with RSA key generated with passphrase.
+
+## Usage
+
+- dependencies
+
+Please be sure you have rsa key: `RSA PRIVATE KEY` created under `~/.ssh/` folder
+
+To create one write in terminal: `ssh-keygen -t rsa -m PEM`
+
+- help
+
+`cryptgo --help`
+
+- encrypt
+
+`cryptgo --input <file to enrypt path> --output <new encrypted file path> encrypt`
+
+- decrypt
+
+`cryptgo --input <encrypted file path> --output <new decrypted file path> decrypt`
+
+- passwd encrypt
+
+`cryptgo --input <file to enrypt path> --output <new encrypted file path> --passwd <passphrase> encrypt`
+
+- decrypt
+
+`cryptgo --input <encrypted file path> --output <new decrypted file path> --passwd <passphrase> decrypt`
+
+
+## Building
+
+This software runs on OSX and Unix based systems, it is not working on Windows yet.
+
+Build with `go build .`
+
+To compress binary build with `go build -ldflags="-s -w"` then run `upx -9 -v cryptgo` (~2MB binary)
+
+## Development
+
+- Recommended go version is `go1.17` or higher.
+- Write an issue please or make a PR against main branch (there is no development branch yet)
+- Please write test (this repo will have )
+
+## Features to implement in the future
+
+- Support for folders encryption/decryption.
+- Support for other asymmetric keys.
+- Support for auto generated keys.
+- P2P encrypted message communication. 
+
