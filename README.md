@@ -7,8 +7,8 @@ Simplistic CLI tool for encrypting and decrypting files based on RSA keys.
 - Asymmetric encryption/decryption.
 - Hash SHA512 based.
 - Random source of entropy ensure that encrypting the same message twice doesn't result in the same ciphertex. 
-- Encrypts single file using your system `~/.ssh/id_rsa` to generate private key.
-- Decrypts single file using your system `~/.ssh/id_rsa` key.
+- Encrypts single file using your system `~/.ssh/id_rsa` to generate new public key.
+- Decrypts single file using your system `~/.ssh/id_rsa` (private) key.
 - Can encrypt and decrypt files with RSA key generated with passphrase.
 
 ## Usage
@@ -52,7 +52,7 @@ To compress binary build with `go build -ldflags="-s -w"` then run `upx -9 -v cr
 
 - Recommended go version is `go1.17` or higher.
 - Write an issue please or make a PR against main branch (there is no development branch yet)
-- Please write test (this repo will have )
+- Please write test for core functionalities before making PR.
 
 ## Features to implement in the future
 
