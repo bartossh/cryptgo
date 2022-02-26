@@ -96,7 +96,9 @@ func (cf *CommandFactory) SetEncrypter(c *cli.Context) (*Command, error) {
 		if _, err := w.Write(bufPriv); err != nil {
 			return nil, fmt.Errorf("canoot write rsa key of pem fromat to file %s, %w", rsaPath, err)
 		}
-		cmd.setCmdEncrypt(bufPriv, []byte{}, rwAgent)
+		if err := cmd.setCmdEncrypt(bufPriv, []byte{}, rwAgent); err != nil {
+			return nil, fmt.Errorf("encryptor initializetion failed, %w", err)
+		}
 		return cmd, nil
 	}
 
@@ -107,7 +109,7 @@ func (cf *CommandFactory) SetEncrypter(c *cli.Context) (*Command, error) {
 	defer rcPriv.Close()
 	bufPriv, err = io.ReadAll(rcPriv)
 	if err != nil {
-		return nil, fmt.Errorf("cannot set cipher, reading private key failed, %s", err)
+		return nil, fmt.Errorf("cannot set cipher, reading private key failed, %w", err)
 	}
 
 	var passwd []byte
@@ -115,7 +117,9 @@ func (cf *CommandFactory) SetEncrypter(c *cli.Context) (*Command, error) {
 	if passwdStr != "" {
 		passwd = []byte(passwdStr)
 	}
-	cmd.setCmdEncrypt(bufPriv, passwd, rwAgent)
+	if err := cmd.setCmdEncrypt(bufPriv, passwd, rwAgent); err != nil {
+		return nil, fmt.Errorf("encryptor initialization failed, %w", err)
+	}
 	return cmd, nil
 }
 
