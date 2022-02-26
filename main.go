@@ -5,9 +5,10 @@ import (
 	"runtime"
 	"sort"
 
-	"github.com/bartossh/cryptgo/actions"
 	"github.com/pterm/pterm"
 	"github.com/urfave/cli/v2"
+
+	"github.com/bartossh/cryptgo/actions"
 )
 
 func main() {
@@ -17,7 +18,7 @@ func main() {
 	}
 	app := &cli.App{
 		Name:      "cryptgo",
-		Usage:     "simple and easy file encryption",
+		Usage:     "simple and easy file encryption / decryption",
 		Copyright: "(c) 2022 Bartossh",
 		HelpName:  "cryptgo",
 		Version:   "v0.0.1",
@@ -25,17 +26,27 @@ func main() {
 			&cli.StringFlag{
 				Name:    actions.Input,
 				Aliases: []string{"i"},
-				Usage:   "path to input name",
+				Usage:   "path to input file",
 			},
 			&cli.StringFlag{
 				Name:    actions.Output,
 				Aliases: []string{"o"},
-				Usage:   "path to output name",
+				Usage:   "path to output file",
 			},
 			&cli.StringFlag{
 				Name:    actions.Passwd,
 				Aliases: []string{"p"},
-				Usage:   "passphrase for rsa key",
+				Usage:   "passphrase for user .ssh rsa key, doesn't work with -generate and -use",
+			},
+			&cli.StringFlag{
+				Name:    actions.Generate,
+				Aliases: []string{"g"},
+				Usage:   "path where to generate fresh rsa key",
+			},
+			&cli.StringFlag{
+				Name:    actions.Use,
+				Aliases: []string{"u"},
+				Usage:   "path to specific rsa key to be used",
 			},
 		},
 		Commands: []*cli.Command{
@@ -47,12 +58,12 @@ func main() {
 					if err != nil {
 						pterm.Error.Println(err)
 					}
-					ac, err := actions.NewCommandFactory().SetEncryptor(c)
+					ac, err := actions.NewCommandFactory().SetEncrypter(c)
 					if err != nil {
 						spnr.Fail("Encryption failed!")
 						return err
 					}
-					if err := ac.Encrypt(c); err != nil {
+					if err := ac.Encrypt(); err != nil {
 						spnr.Fail("Encryption failed!")
 						return err
 					}
@@ -68,12 +79,12 @@ func main() {
 					if err != nil {
 						pterm.Error.Println(err)
 					}
-					ac, err := actions.NewCommandFactory().SetDecryptor(c)
+					ac, err := actions.NewCommandFactory().SetDecrypter(c)
 					if err != nil {
 						spnr.Fail("Decryption failed!")
 						return err
 					}
-					if err := ac.Decrypt(c); err != nil {
+					if err := ac.Decrypt(); err != nil {
 						spnr.Fail("Decryption failed!")
 						return err
 					}

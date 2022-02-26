@@ -12,6 +12,10 @@ import (
 	"io"
 )
 
+const (
+	bitSize = 4096
+)
+
 type (
 	// Encrypt offers encryption pipe
 	Encrypt struct {
@@ -71,6 +75,33 @@ func (d *Decrypt) Pipe(rd io.Reader, wr io.Writer) error {
 		return fmt.Errorf("cannot pipe and decrypt, writing failed, %s", err)
 	}
 	return nil
+}
+
+// GeneratePrivateKey generates new rsa private key
+func GeneratePrivateKey() (*rsa.PrivateKey, error) {
+	privateKey, err := rsa.GenerateKey(rand.Reader, bitSize)
+	if err != nil {
+		return nil, err
+	}
+
+	err = privateKey.Validate()
+	if err != nil {
+		return nil, err
+	}
+
+	return privateKey, nil
+}
+
+// EncodePrivateKeyToPEM encodes private key to PEM format
+func EncodePrivateKeyToPEM(privateKey *rsa.PrivateKey) []byte {
+	privDER := x509.MarshalPKCS1PrivateKey(privateKey)
+	privBlock := pem.Block{
+		Type:    "RSA PRIVATE KEY",
+		Headers: nil,
+		Bytes:   privDER,
+	}
+	privatePEM := pem.EncodeToMemory(&privBlock)
+	return privatePEM
 }
 
 func rsaConfigSetup(priv, passwd []byte) (*rsa.PrivateKey, error) {
