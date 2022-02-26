@@ -13,6 +13,8 @@ Simplistic CLI tool for encrypting and decrypting files based on RSA keys.
 - Encrypts single file using your system `~/.ssh/id_rsa` to generate new public key.
 - Decrypts single file using your system `~/.ssh/id_rsa` (private) key.
 - Can encrypt and decrypt files with RSA key generated with passphrase.
+- Encrypt single file using auto generated rsa key, saves key in to given path
+- Decrypts single file using file key from provided path
 
 ## Usage
 
@@ -28,20 +30,27 @@ To create one write in terminal: `ssh-keygen -t rsa -m PEM`
 
 - encrypt
 
-`cryptgo --input <file to enrypt path> --output <new encrypted file path> encrypt`
+`cryptgo --input <file path to enrypt> --output <new encrypted file path> encrypt`
 
 - decrypt
 
-`cryptgo --input <encrypted file path> --output <new decrypted file path> decrypt`
+`cryptgo --input <path to encrypted file> --output <new decrypted file path> decrypt`
 
 - passwd encrypt
 
 `cryptgo --input <file to enrypt path> --output <new encrypted file path> --passwd <passphrase> encrypt`
 
-- decrypt
+- passwd decrypt
 
 `cryptgo --input <encrypted file path> --output <new decrypted file path> --passwd <passphrase> decrypt`
 
+- auto generate key encrypt
+
+`cryptgo --input <file path to enrypt> --output <new encrypted file path> -generate <path where to save rsa key> encrypt`
+
+- use key from path decrypt
+
+`cryptgo --input <path to encrypted file> --output <new decrypted file path> -use <path to rsa key to be used> decrypt`
 
 ## Building
 
@@ -61,6 +70,5 @@ To compress binary build with `go build -ldflags="-s -w"` then run `upx -9 -v cr
 
 - Support for folders encryption/decryption.
 - Support for other asymmetric keys.
-- Support for auto generated keys.
 - P2P encrypted message communication. 
-
+- make it available for windows
