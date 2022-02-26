@@ -16,3 +16,6 @@
 
 # VIM swap files
 **/*.swp
+
+# idea ide
+.idea
